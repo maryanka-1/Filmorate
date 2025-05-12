@@ -1,18 +1,12 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
-
 import java.time.LocalDate;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import static org.assertj.core.api.Assertions.linesOf;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -190,100 +184,4 @@ class UserControllerTest {
         String actual = exception.getMessage();
         assertThat(actual).isEqualTo(expected);
     }
-
-
-
-
-
-
-//    @Test
-//    void shouldUpdateEmailNull() {
-//        controller.addUser(user);
-//        user.setEmail(null);
-//        ValidationException exception = assertThrows(ValidationException.class, () -> controller.update(user));
-//        String expected = "Адрес электронной почты не может быть пустым либо введен не корректный формат";
-//        String actual = exception.getMessage();
-//        assertThat(actual).isEqualTo(expected);
-//    }
-//
-//    @Test
-//    void shouldUpdateEmailIncorrect() {
-//        controller.addUser(user);
-//        user.setEmail("null");
-//        ValidationException exception = assertThrows(ValidationException.class, () -> controller.update(user));
-//        String expected = "Адрес электронной почты не может быть пустым либо введен не корректный формат";
-//        String actual = exception.getMessage();
-//        assertThat(actual).isEqualTo(expected);
-//    }
-//
-//    @Test
-//    void shouldUpdateEmailEmpty() {
-//        controller.addUser(user);
-//        user.setEmail("");
-//        ValidationException exception = assertThrows(ValidationException.class, () -> controller.update(user));
-//        String expected = "Адрес электронной почты не может быть пустым либо введен не корректный формат";
-//        String actual = exception.getMessage();
-//        assertThat(actual).isEqualTo(expected);
-//    }
-//
-//    @Test
-//    void shouldUpdateLoginNull() {
-//        controller.addUser(user);
-//        user.setLogin(null);
-//        ValidationException exception = assertThrows(ValidationException.class, () -> controller.update(user));
-//        String expected = "Логин не может быть пустым или содержать пробелы";
-//        String actual = exception.getMessage();
-//        assertThat(actual).isEqualTo(expected);
-//    }
-//
-//    @Test
-//    void shouldUpdateLoginIncorrect() {
-//        controller.addUser(user);
-//        user.setLogin("null null");
-//        ValidationException exception = assertThrows(ValidationException.class, () -> controller.update(user));
-//        String expected = "Логин не может быть пустым или содержать пробелы";
-//        String actual = exception.getMessage();
-//        assertThat(actual).isEqualTo(expected);
-//    }
-//
-//    @Test
-//    void shouldUpdateLoginEmpty() {
-//        controller.addUser(user);
-//        user.setLogin("");
-//        ValidationException exception = assertThrows(ValidationException.class, () -> controller.update(user));
-//        String expected = "Логин не может быть пустым или содержать пробелы";
-//        String actual = exception.getMessage();
-//        assertThat(actual).isEqualTo(expected);
-//    }
-//
-//    @Test
-//    void shouldUpdateName() {
-//        controller.addUser(user);
-//        String actual = user.getLogin();
-//        user.setName(null);
-//        controller.update(user);
-//        String expected = "PeterPan";
-//        assertThat(actual).isEqualTo(expected);
-//    }
-//
-//    @Test
-//    void shouldUpdateBirthdayNow() {
-//        controller.addUser(user);
-//        user.setBirthday(LocalDate.now());
-//        ValidationException exception = assertThrows(ValidationException.class, () -> controller.update(user));
-//        String expected = "Дата рождения должна быть меньше текущей";
-//        String actual = exception.getMessage();
-//        assertThat(actual).isEqualTo(expected);
-//    }
-//
-//    @Test
-//    void shouldUpdateBirthdayTomorrow() {
-//        controller.addUser(user);
-//        user.setBirthday(LocalDate.now().plusDays(1));
-//        ValidationException exception = assertThrows(ValidationException.class, () -> controller.update(user));
-//        String expected = "Дата рождения должна быть меньше текущей";
-//        String actual = exception.getMessage();
-//        assertThat(actual).isEqualTo(expected);
-//    }
-
 }
