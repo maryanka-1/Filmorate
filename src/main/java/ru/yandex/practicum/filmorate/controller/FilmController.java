@@ -31,10 +31,10 @@ public class FilmController {
 
     @PutMapping
     public Film updateFilm(@RequestBody Film newFilm) {
-        if (checkValidation(newFilm)) {
+        if (checkValidation(newFilm) && films.containsKey(newFilm.getId())) {
             films.put(newFilm.getId(), newFilm);
             log.info("фильм обновлен: {}", newFilm);
-        }
+        } else throw new ValidationException("фильм не найден");
         return newFilm;
     }
 

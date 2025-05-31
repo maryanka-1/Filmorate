@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 @RestController
 @RequestMapping("/users")
@@ -29,13 +30,10 @@ public class UserController {
 
     @PutMapping
     public User update(@RequestBody User newUser) {
-        if (!users.containsValue(newUser)) {
-            throw new ValidationException("Пользователь не найден");
-        }
-        if (checkValidation(newUser)) {
+        if (checkValidation(newUser) && users.containsKey(newUser.getId())) {
             users.put(newUser.getId(), newUser);
             log.info("Пользователь обновлен: {}", newUser);
-        }
+        } else throw new ValidationException("пользователь не найден");
         return newUser;
     }
 
