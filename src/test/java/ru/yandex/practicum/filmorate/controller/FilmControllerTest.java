@@ -12,8 +12,8 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class FilmControllerTest {
 
+class FilmControllerTest {
     FilmController controller = new FilmController();
     Film film1 = new Film("Limitless", "science fiction film", LocalDate.of(2011, 01, 01), 105);
     Film film2 = new Film("Shutter Island", "detective film", LocalDate.of(2009, 01, 01), 138);
@@ -33,7 +33,7 @@ class FilmControllerTest {
         film1.setName("No name");
         String expected = "No name";
         controller.updateFilm(film1);
-        String actual = controller.listFilms.get(id).getName();
+        String actual = controller.films.get(id).getName();
         assertThat(actual).isEqualTo(expected);
     }
 

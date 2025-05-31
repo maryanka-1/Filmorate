@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 
@@ -16,7 +15,6 @@ import java.util.Objects;
 @Getter
 @Slf4j
 public class User {
-    private static int idCounter = 0;
     private int id;
     private String email;
     private String login;
@@ -24,12 +22,12 @@ public class User {
     private LocalDate birthday;
 
     public User(String email, String name, String login, LocalDate birthday) {
-        this.id = ++idCounter;
         this.email = email;
         this.name = name;
         this.login = login;
         this.birthday = birthday;
     }
+
 
     @Override
     public boolean equals(Object o) {

@@ -3,11 +3,10 @@ package ru.yandex.practicum.filmorate.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
-import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.IdGenerator;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,12 +15,13 @@ import java.util.Map;
 @RequestMapping("/users")
 @Slf4j
 public class UserController {
-    public Map<Integer, User> listUsers = new HashMap<>();
+    public Map<Integer, User> users = new HashMap<>();
 
     @PostMapping
     public User addUser(@RequestBody User newUser) {
         if (checkValidation(newUser)) {
-            listUsers.put(newUser.getId(), newUser);
+            newUser.setId(IdGenerator.generateId());
+            users.put(newUser.getId(), newUser);
             log.info("пользователь добавлен: {}", newUser);
         }
         return newUser;
@@ -29,8 +29,11 @@ public class UserController {
 
     @PutMapping
     public User update(@RequestBody User newUser) {
+        if(!users.containsValue(newUser)){
+            throw new ValidationException("Пользователь не найден");
+        }
         if (checkValidation(newUser)) {
-            listUsers.put(newUser.getId(), newUser);
+            users.put(newUser.getId(), newUser);
             log.info("Пользователь обновлен: {}", newUser);
         }
         return newUser;
@@ -38,7 +41,7 @@ public class UserController {
 
     @GetMapping
     public Collection<User> getUsers() {
-        return listUsers.values();
+        return users.values();
     }
 
     public boolean checkValidation(User newUser) {
@@ -59,8 +62,8 @@ public class UserController {
             log.error("Некорректная дата рождения");
             throw new ValidationException("Дата рождения должна быть меньше текущей");
         }
-        if (!listUsers.isEmpty()) {
-            listUsers.values().forEach(user -> {
+        if (!users.isEmpty()) {
+            users.values().forEach(user -> {
                 if (user.getId() != newUser.getId()) {
                     if (user.getEmail().equals(newUser.getEmail())) {
                         log.error("Введенная почта уже занята");

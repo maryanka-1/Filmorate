@@ -123,7 +123,7 @@ class UserControllerTest {
         User user2 = new User("bbb@ya.ru", null, "PeterPan", LocalDate.of(2000, 10, 10));
         controller.addUser(user2);
         String expected = "PeterPan";
-        String actual = controller.listUsers.get(user2.getId()).getName();
+        String actual = controller.users.get(user2.getId()).getName();
         assertThat(actual).isEqualTo(expected);
     }
 

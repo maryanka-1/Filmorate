@@ -4,8 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.IdGenerator;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,22 +16,23 @@ import java.util.Map;
 @RequestMapping("/films")
 @Slf4j
 public class FilmController {
-    public Map<Integer, Film> listFilms = new HashMap<>();
+    public Map<Integer, Film> films = new HashMap<>();
 
     @PostMapping
-
     public Film addFilm(@RequestBody Film newFilm) { //?????
         if (checkValidation(newFilm)) {
-            listFilms.put(newFilm.getId(), newFilm);
+            newFilm.setId(IdGenerator.generateId());
+            films.put(newFilm.getId(), newFilm);
             log.info("Фильм добавлен: {}", newFilm);
         }
         return newFilm;
     }
 
+
     @PutMapping
     public Film updateFilm(@RequestBody Film newFilm) {
         if (checkValidation(newFilm)) {
-            listFilms.put(newFilm.getId(), newFilm);
+            films.put(newFilm.getId(), newFilm);
             log.info("фильм обновлен: {}", newFilm);
         }
         return newFilm;
@@ -37,7 +40,7 @@ public class FilmController {
 
     @GetMapping
     public Collection<Film> getFilms() {
-        return listFilms.values();
+        return new ArrayList<>(films.values());
     }
 
     public boolean checkValidation(Film newFilm) {
