@@ -29,7 +29,7 @@ public class UserController {
 
     @PutMapping
     public User update(@RequestBody User newUser) {
-        if(!users.containsValue(newUser)){
+        if (!users.containsValue(newUser)) {
             throw new ValidationException("Пользователь не найден");
         }
         if (checkValidation(newUser)) {
