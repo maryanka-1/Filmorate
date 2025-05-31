@@ -92,7 +92,7 @@ class FilmControllerTest {
         ValidationException exception = assertThrows(ValidationException.class, () -> controller.checkValidation(new Film(
                 "Name",
                 "description",
-                LocalDate.of(1800,1,1),
+                LocalDate.of(1800, 1, 1),
                 100)));
         String expected = "Дата выхода фильма не может быть ранее 28.12.1895";
         String actual = exception.getMessage();
