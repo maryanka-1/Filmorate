@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.controller;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserService;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class UserControllerTest {
-    UserController controller = new UserController();
+    UserController controller = new UserController(new UserService());
     User user = new User("mail@ya.ru", "Peter", "PeterPan", LocalDate.of(2000, 10, 10));
     User user1 = new User("bbb@ya.ru", "Vasya", "vasya", LocalDate.of(2000, 10, 10));
 
@@ -122,9 +123,9 @@ class UserControllerTest {
     @Test
     void shouldAddUserNameNull() {
         User user2 = new User("bbb@ya.ru", null, "PeterPan", LocalDate.of(2000, 10, 10));
-        controller.addUser(user2);
+        User checked = controller.addUser(user2);
         String expected = "PeterPan";
-        String actual = controller.users.get(user2.getId()).getName();
+        String actual = checked.getName();
         assertThat(actual).isEqualTo(expected);
     }
 

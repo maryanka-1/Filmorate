@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.controller;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.FilmService;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -14,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class FilmControllerTest {
-    FilmController controller = new FilmController();
-    Film film1 = new Film("Limitless", "science fiction film", LocalDate.of(2011, 01, 01), 105);
-    Film film2 = new Film("Shutter Island", "detective film", LocalDate.of(2009, 01, 01), 138);
+    FilmController controller = new FilmController(new FilmService());
+    Film film1 = new Film("Limitless", "science fiction film", LocalDate.of(2011, 1, 1), 105);
+    Film film2 = new Film("Shutter Island", "detective film", LocalDate.of(2009, 1, 1), 138);
 
     @Test
     void shouldAddFilm() {
@@ -32,8 +33,8 @@ class FilmControllerTest {
         int id = film1.getId();
         film1.setName("No name");
         String expected = "No name";
-        controller.updateFilm(film1);
-        String actual = controller.films.get(id).getName();
+        String actual = controller.updateFilm(film1).getName();
+//        String actual = controller.films.get(id).getName();
         assertThat(actual).isEqualTo(expected);
     }
 
