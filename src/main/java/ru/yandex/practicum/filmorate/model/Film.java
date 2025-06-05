@@ -16,12 +16,16 @@ public class Film {
     private String description;
     private LocalDate releaseDate;
     private double duration;
+    private Genre genre;
+    private Rating rating;
 
-    public Film(String name, String description, LocalDate releaseDate, double duration) {
+    public Film(String name, String description, LocalDate releaseDate, double duration, Genre genre, Rating rating) {
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
+        this.genre = genre;
+        this.rating = rating;
     }
 
 }
