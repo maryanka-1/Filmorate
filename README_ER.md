@@ -1,5 +1,5 @@
 # ER-диаграмма:
-![ER](src/main/resources/ER.png)
+![ER](ER.png)
 
 ### Создание таблиц:
 ```
