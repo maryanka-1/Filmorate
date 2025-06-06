@@ -24,9 +24,7 @@ CREATE TABLE IF NOT EXISTS films(
     name VARCHAR (200) NOT NULL,
     description VARCHAR (400) NOT NULL,
     release_date DATE NOT NULL,
-    duration INTEGER NOT NULL,
-    id_genre INTEGER NOT NULL,
-    id_rating INTEGER NOT NULL
+    duration INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS genre(
@@ -79,9 +77,7 @@ INSERT INTO films
             'Limitless',
             'science fiction film',
             '2011-01-01',
-            '105',
-            (select id_genre from genre where genre = 'COMEDY'),
-            (select id_rating from rating where rating = 'G'));
+            '105';
             
 INSERT INTO film_genre (id_film, id_genre)
 SELECT id_film, id_genre
@@ -99,9 +95,7 @@ WHERE id = '1';
 UPDATE films SET name = 'Limit', 
                  description = 'science',
                  '2011-01-01',
-                 '105',
-                 (select id_genre from genre where genre = 'COMEDY'),
-                 (select id_rating from rating where rating = 'G')
+                 '105'
 WHERE id = '1';
 
 UPDATE film_genre SET (id_film, id_genre) = 
@@ -116,10 +110,12 @@ UPDATE film_rating SET (id_film, id_rating) =
 ```
 - get/films:
 ```
-SELECT f.id_film, f.name, f.description, f.release_date, f.duration, g.name, r.rating
+SELECT f.id_film, f.name, f.description, f.release_date, f.duration, g.name AS genre, r.rating AS rating
 FROM films AS f
-INNER JOIN genre AS g ON f.id_genre = g.id_genre
-INNER JOIN rating AS r ON f.id_rating = r.id_rating;
+INNER JOIN film_genre AS fg ON f.id_film = fg.id_film
+INNER JOIN genre AS g ON fg.id_genre = g.id_genre
+INNER JOIN film_rating AS fr ON f.id_film = fr.id_film
+INNER JOIN rating AS r ON fr.id_rating = r.id_rating;
 ```
 - post/users:<br>
   user(1, "mail@ya.ru", "PeterPan", "Peter", LocalDate.of(2000, 10, 10));
