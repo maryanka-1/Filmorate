@@ -1,8 +1,11 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.model.Rating;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
 import java.time.LocalDate;
@@ -16,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FilmControllerTest {
     FilmController controller = new FilmController(new FilmService());
-    Film film1 = new Film("Limitless", "science fiction film", LocalDate.of(2011, 1, 1), 105);
-    Film film2 = new Film("Shutter Island", "detective film", LocalDate.of(2009, 1, 1), 138);
+    Film film1 = new Film("Limitless", "science fiction film", LocalDate.of(2011, 1, 1), 105, Genre.COMEDY, Rating.G);
+    Film film2 = new Film("Shutter Island", "detective film", LocalDate.of(2009, 1, 1), 138, Genre.COMEDY, Rating.G);
 
     @Test
     void shouldAddFilm() {
@@ -61,7 +64,7 @@ class FilmControllerTest {
     @Test
     void shouldValidNameFilmNull() {
         ValidationException exception = assertThrows(ValidationException.class, () -> controller.checkValidation(
-                new Film(null, "description", LocalDate.now(), 100)));
+                new Film(null, "description", LocalDate.now(), 100, Genre.COMEDY, Rating.G)));
         String expected = "Название фильма не может быть пустым";
         String actual = exception.getMessage();
         assertThat(actual).isEqualTo(expected);
@@ -70,7 +73,7 @@ class FilmControllerTest {
     @Test
     void shouldValidNameFilmEmpty() {
         ValidationException exception = assertThrows(ValidationException.class, () -> controller.checkValidation(
-                new Film("", "description", LocalDate.now(), 100)));
+                new Film("", "description", LocalDate.now(), 100, Genre.COMEDY, Rating.G)));
         String expected = "Название фильма не может быть пустым";
         String actual = exception.getMessage();
         assertThat(actual).isEqualTo(expected);
@@ -82,7 +85,9 @@ class FilmControllerTest {
                 "Name",
                 "description/description/descrihjhjhjhjhjhjhjhjhjhjhjhjhjhhhpjkjkjkjkjkjkjkjkjjjjjjjhhkjhjhnbtion/description/description/description/description/description/description/description/description/description/",
                 LocalDate.now(),
-                100)));
+                100,
+                Genre.COMEDY,
+                Rating.G)));
         String expected = "Описание на может превышать 200 символов";
         String actual = exception.getMessage();
         assertThat(actual).isEqualTo(expected);
@@ -94,7 +99,9 @@ class FilmControllerTest {
                 "Name",
                 "description",
                 LocalDate.of(1800, 1, 1),
-                100)));
+                100,
+                Genre.COMEDY,
+                Rating.G)));
         String expected = "Дата выхода фильма не может быть ранее 28.12.1895";
         String actual = exception.getMessage();
         assertThat(actual).isEqualTo(expected);
@@ -105,7 +112,9 @@ class FilmControllerTest {
         ValidationException exception = assertThrows(ValidationException.class, () -> controller.checkValidation(new Film(
                 "Name",
                 "description",
-                LocalDate.now(), -10)));
+                LocalDate.now(), -10,
+                Genre.COMEDY,
+                Rating.G)));
         String expected = "Некорректная длительность фильма";
         String actual = exception.getMessage();
         assertThat(actual).isEqualTo(expected);
