@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 /**
  * Film.
@@ -16,10 +17,10 @@ public class Film {
     private String description;
     private LocalDate releaseDate;
     private double duration;
-    private Genre genre;
+    private Set<Genre> genre;
     private Rating rating;
 
-    public Film(String name, String description, LocalDate releaseDate, double duration, Genre genre, Rating rating) {
+    public Film(String name, String description, LocalDate releaseDate, double duration, Set<Genre> genre, Rating rating) {
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
